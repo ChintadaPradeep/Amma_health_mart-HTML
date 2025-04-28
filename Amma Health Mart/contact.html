@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Cart - Amma Health Mart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f7f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+  
+    main {
+      flex: 1;
+    }
+  
+    header {
+      background-color: #00695c;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+  
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+  
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      padding: 0;
+      margin: 0;
+    }
+  
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  
+    nav a:hover {
+      color: #ffe082;
+    }
+  
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 40px 20px;
+    }
+  
+    .product-card {
+      background-color: white;
+      border: 1px solid #ddd;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+  
+    .product-card:hover {
+      transform: scale(1.03);
+    }
+  
+    .product-card h3 {
+      margin: 10px 0;
+      font-size: 18px;
+    }
+  
+    .product-card p {
+      font-size: 16px;
+      font-weight: bold;
+      color: #388e3c;
+    }
+  
+    .product-card button {
+      padding: 8px 16px;
+      background-color: #d32f2f;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  
+    .product-card button:hover {
+      background-color: #b71c1c;
+    }
+  
+    .empty {
+      text-align: center;
+      font-size: 20px;
+      color: #110808;
+      padding: 50px 20px;
+    }
+  
+    #cartSummary {
+      background-color: #e0f2f1;
+      margin: 30px auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: fit-content;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+  
+    #cartSummary h3 {
+      margin: 10px 0;
+    }
+  
+    #cartSummary button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #00796b;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  
+    #cartSummary button:hover {
+      background-color: #004d40;
+    }
+  
+    footer {
+      background-color: #00796b;
+      color: white;
+      text-align: center;
+      padding: 15px 60px;
+    }
+  </style>
+  
+<body>
+    <header>
+        <h1>Your Contact - Amma Health Mart</h1>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html" target="_blank">Shop</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </header>
+
+  <main>
+    
+    <div class="contact-container">
+        <h2>Contact Us</h2>
+        <div class="contact-item">
+            <span class="contact-label">📧 Email:</span>
+            <span class="contact-value">amma_health_mart@gmail.com</span>
+        </div>
+        <div class="contact-item">
+            <span class="contact-label">📱 My Mobile Number:</span>
+            <span class="contact-value">+91 9**** 4****</span>
+        </div>
+        <div class="contact-item">
+            <span class="contact-label">📞 Shop Contact Number:</span>
+            <span class="contact-value">08818-223100</span>
+        </div>
+        <div class="contact-item">
+            <span class="contact-label">👤 Contact Person in Shop:</span>
+            <span class="contact-value">+91 9**** 2****</span>
+        </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; Amma Health Mart. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function renderCart() {
+      const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+      const container = document.getElementById("cartItems");
+      const emptyMsg = document.getElementById("emptyCart");
+      const summary = document.getElementById("cartSummary");
+      const itemCount = document.getElementById("itemCount");
+      const totalPrice = document.getElementById("totalPrice");
+
+      container.innerHTML = "";
+      let total = 0;
+
+      if (cartItems.length === 0) {
+        emptyMsg.style.display = "block";
+        summary.style.display = "none";
+        return;
+      }
+
+      emptyMsg.style.display = "none";
+      summary.style.display = "block";
+      itemCount.textContent = cartItems.length;
+      cartItems.forEach(item => total += parseFloat(item.price));
+      totalPrice.textContent = total.toFixed(2);
+
+      cartItems.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.className = "product-card";
+        div.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" width="150">
+          <h3>${item.name}</h3>
+          <p>₹${item.price}</p>
+          <button onclick="removeFromCart(${index})">Remove</button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function removeFromCart(index) {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    function proceedToCheckout() {
+      window.location.href = "payment.html";
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> Amma Health Mart - Home</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f7f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #00695c;
+      color: white;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 10px 0;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffe082;
+    }
+
+    .search-container {
+      padding: 20px;
+      text-align: center;
+    }
+
+    #searchInput {
+      width: 60%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .intro {
+      position: relative;
+      text-align: center;
+      padding: 80px 20px;
+      background-image: url('background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: white;
+      text-shadow: 0 0 6px rgba(0,0,0,0.7);
+      z-index: 1;
+    }
+
+    .intro h2 {
+      font-size: 32px;
+      margin-bottom: 15px;
+    }
+
+    .intro p {
+      font-size: 18px;
+      color: #fff;
+    }
+
+    .intro button {
+      margin-top: 25px;
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #00796b;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .intro button:hover {
+      background-color: #004d40;
+    }
+
+    main {
+      flex: 1;
+      position: relative;
+    }
+
+    footer {
+      background-color: #004d40;
+      color: white;
+      text-align: center;
+      padding: 15px 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><img src="lakshmi medicals logo1.png" width="30">Amma Health Mart</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+
+  <main class="intro">
+    <h2>Welcome to Amma Health Mart</h2>
+    <p>Providing quality medicines and healthcare products at affordable prices.</p>
+    <a href="shop.html"><button>Visit Full Shop</button></a>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Amma Health Mart. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.getElementById('searchInput').addEventListener('input', function () {
+      const filter = this.value.toLowerCase();
+      const cards = document.querySelectorAll('.product-card');
+      cards.forEach(card => {
+        const name = card.querySelector('h2')?.innerText.toLowerCase();
+        card.style.display = name.includes(filter) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>

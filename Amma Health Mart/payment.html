@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment - Amma Health Mart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f7f9;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: #00695c;
+      color: white;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffe082;
+    }
+
+    .payment-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      flex-grow: 1;
+    }
+
+    .payment-container h2 {
+      margin-bottom: 20px;
+      color: #00695c;
+    }
+
+    .payment-options {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .payment-options label {
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+    }
+
+    .payment-options input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    .details-form {
+      margin-top: 20px;
+      display: none;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .details-form input {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    #continueBtn {
+      margin-top: 30px;
+      padding: 12px 20px;
+      font-size: 16px;
+      background-color: #00796b;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: none;
+    }
+
+    #continueBtn:hover {
+      background-color: #004d40;
+    }
+
+    footer {
+      background-color: #004d40;
+      color: white;
+      text-align: center;
+      padding: 15px 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1><img src="lakshmi medicals logo1.png" width="30">Amma Health Mart</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="payment.html">Payment</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="payment-container">
+    <h2>Select Your Payment Method</h2>
+    <form id="paymentForm" class="payment-options">
+      <label><input type="radio" name="payment" value="credit" /> Credit Card</label>
+      <label><input type="radio" name="payment" value="debit" /> Debit Card</label>
+      <label><input type="radio" name="payment" value="upi" /> UPI</label>
+      <label><input type="radio" name="payment" value="netbanking" /> Net Banking</label>
+      <label><input type="radio" name="payment" value="cod" /> Cash on Delivery</label>
+
+      <!-- Credit/Debit Inputs -->
+      <div id="cardForm" class="details-form">
+        <input type="text" placeholder="Cardholder Name" />
+        <input type="text" placeholder="Card Number" />
+        <input type="text" placeholder="Expiry Date (MM/YY)" />
+        <input type="text" placeholder="CVV" />
+      </div>
+
+      <!-- UPI -->
+      <div id="upiForm" class="details-form">
+        <input type="text" placeholder="Enter UPI ID (e.g., name@upi)" />
+      </div>
+
+      <!-- Net Banking -->
+      <div id="netbankForm" class="details-form">
+        <input type="text" placeholder="Bank Name" />
+        <input type="text" placeholder="Account Number" />
+      </div>
+
+      <button id="continueBtn" type="submit">Continue</button>
+    </form>
+  </div>
+
+  <footer>
+    <p>&copy; Amma Health Mart. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const radioButtons = document.querySelectorAll('input[name="payment"]');
+    const continueBtn = document.getElementById("continueBtn");
+
+    const forms = {
+      cardForm: document.getElementById("cardForm"),
+      upiForm: document.getElementById("upiForm"),
+      netbankForm: document.getElementById("netbankForm")
+    };
+
+    function hideAllForms() {
+      Object.values(forms).forEach(form => form.style.display = "none");
+    }
+
+    radioButtons.forEach(radio => {
+      radio.addEventListener("change", () => {
+        hideAllForms();
+        continueBtn.style.display = "block";
+
+        switch (radio.value) {
+          case "credit":
+          case "debit":
+            forms.cardForm.style.display = "flex";
+            break;
+          case "upi":
+            forms.upiForm.style.display = "flex";
+            break;
+          case "netbanking":
+            forms.netbankForm.style.display = "flex";
+            break;
+        }
+      });
+    });
+
+    document.getElementById("paymentForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("Payment confirmed. Redirecting to delivery address form...");
+      window.location.href = "address.html";
+    });
+  </script>
+
+</body>
+</html>

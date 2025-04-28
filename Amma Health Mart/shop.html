@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop - Amma Health Mart</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f5f7f9;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: #00695c;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #ffe082;
+    }
+
+    .search-container {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .search-container input {
+      width: 300px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      flex: 1;
+    }
+
+    .product-card {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+    }
+
+    .product-card:hover {
+      transform: scale(1.03);
+    }
+
+    .product-card h3 {
+      margin: 10px 0;
+      font-size: 18px;
+    }
+
+    .product-card p {
+      font-size: 16px;
+      font-weight: bold;
+      color: #388e3c;
+    }
+
+    .product-card button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #00796b;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .product-card button:hover {
+      background-color: #ee3300;
+      
+    }
+
+    footer {
+      background-color: #00796b;
+      color: white;
+      text-align: center;
+      padding: 15px 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Shop - Amma Health Mart</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html" target="_blank">Shop</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search medicines...">
+  </div>
+
+  <section class="product-grid" id="shopProducts"></section>
+
+  <footer>
+    <p>&copy; 2025 Amma Health Mart. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const products = [
+    
+      { name: " Alcohol & Drug D-Addiction", price: 200, image: " Alcohol & Drug D-Addiction.jpg" },
+      { name: "Paracetamol", price: 35, image: "paracetamol.jpg" },
+      { name: "Cetirizine", price: 40, image: "cetrezine.jpg" },
+      { name: "Ranitidine", price: 55, image: "rantadine.jpg" },
+      { name: "Famotidine", price: 60, image: "famotidine.jpg" },
+      { name: "Metronidazole", price: 70, image: "metrindozol.jpg" },
+      { name: "Azithromycin", price: 50, image: "azitral.jpg" },
+      { name: "Amoxicillin", price: 65, image: "amoxicillin.jpg" },
+      { name: "Ciprofloxacin", price: 75, image: "ciprofloxacin.jpg" },
+      { name: "Cefixime", price: 40, image: "cefixime.jpg" },
+      { name: "Clotrimazole", price: 45, image: "clotrimazole.jpg" },
+      { name: "Cough Syrup", price: 80, image: "cough syrup.webp" },
+      { name: "pantoprazole", price: 50, image: "pantoprazole.jpg" },
+      { name: "Metoprolol", price: 60, image: "Metoprolol.jpg" },
+      { name: "Zantac", price: 55, image: "Zantac.jpg" },
+      { name: "orsl", price: 30, image: "orsl.jpg" },
+      { name: "health ok", price: 35, image: "health ok.jpg" },
+      { name: "cepodem cv", price: 80, image: "cepodem cv.jpg" },
+      { name: "eye drop", price: 59.9, image: "eye drop.jpg" },
+      { name: "ear drops", price: 55, image: "ear drops.jpg" },
+      { name: "Listerine Cool Mint Mouthwash 500ml,", price: 65, image: "mouth wash.jpg" },
+      { name: "Sensodyne", price: 70, image: "Sensodyne.jpg" },
+      { name: "detol body wash", price: 80, image: "detol body wash.jpg" },
+      { name: "Tetmosol Medicated Soap", price: 100, image: "Tetmosol Medicated Soap.webp" },
+      { name: "vicks inhaler", price: 40, image: "vicks inhaler.webp" },
+      { name: "cofsils", price: 30, image: "cofsils.jpg" },
+      { name: "nurokind plus injection", price: 30, image: "nurikind plus injection.jpg" },
+      { name: " Mem Plus Sigma Tablets", price: 30, image: " Mem Plus Sigma Tablets.jpg" },
+
+
+    ];
+
+    const productGrid = document.getElementById("shopProducts");
+
+    products.forEach(product => {
+      const card = document.createElement("div");
+      card.className = "product-card";
+      card.innerHTML = `
+        <img src="${product.image}" alt="${product.name}" width="150" height="150">
+        <h3>${product.name}</h3>
+        <p>₹${product.price}</p>
+        <button onclick="addToCart('${product.name}', ${product.price}, '${product.image}')">Add to Cart</button>
+      `;
+      productGrid.appendChild(card);
+    });
+
+    function addToCart(name, price, image) {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push({ name, price, image });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(name + " added to cart!");
+    }
+
+    document.getElementById('searchInput').addEventListener('input', function () {
+      const filter = this.value.toLowerCase();
+      const cards = document.querySelectorAll('.product-card');
+      cards.forEach(card => {
+        const name = card.querySelector('h3').textContent.toLowerCase();
+        card.style.display = name.includes(filter) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
